@@ -1,6 +1,7 @@
 import math
 from Modelo import *
 import glm
+import glfw
 
 class Jugador(Modelo):
 
@@ -16,6 +17,10 @@ class Jugador(Modelo):
         self.IZQUIERDA = 3
         self.DERECHA = 4
         self.posicion = glm.vec3(-0.9,-0.55,0.0)
+
+        self.posicion_anterior = 0.0
+
+        self.velocidad_y = 0.7
 
         self.vertices = np.array(
             [
@@ -40,6 +45,46 @@ class Jugador(Modelo):
 
             if avanzar == True:
                 self.posicion[0] = self.posicion[0] + cantidad_movimiento
+
+            #Salto
+            #Velocidad de salto
+            poder_salto = 1.9
+            vel_y = self.velocidad_y * tiempo_delta * poder_salto
+            gravedad = -0.9
+            #Que tan alto salta
+            cantidad_de_salto = 0.5
+
+            estado_tecla_space = glfw.get_key(window, glfw.KEY_SPACE)
+            #print(str(estado_tecla_space))
+
+            if self.JUMP is False and self.IS_JUMPING is False and estado_tecla_space == glfw.PRESS:
+                self.JUMP = True
+                self.posicion_y_cuadrado_anterior = self.posicion[1]
+
+            if self.JUMP is True:
+                # Añade a la y la velocidad_y a la velocidad anteiror
+                # Añade la velocidad del salto
+                self.posicion[1] += vel_y
+                self.IS_JUMPING = True
+
+            #Ver si ya se paso
+            if self.IS_JUMPING:
+                if self.posicion[1] - self.posicion_y_cuadrado_anterior >= cantidad_de_salto:
+                    
+                    self.JUMP = False
+                    vel_y = gravedad * tiempo_delta
+                    self.posicion[1] += vel_y
+                    self.IS_FALLING = True
+
+            if self.IS_FALLING: 
+                vel_y = gravedad * tiempo_delta
+                self.posicion[1] += vel_y
+
+                if self.posicion[1] <= self.posicion_y_cuadrado_anterior:
+                    self.IS_JUMPING = False
+                    self.JUMP = False
+                    self.IS_FALLING = False
+                    self.posicion[1] = self.posicion_y_cuadrado_anterior
 
     def dibujar(self):
         self.shader.usar_programa()

@@ -56,6 +56,7 @@ def actualizar():
     tiempo_delta = tiempo_actual - tiempo_anterior
 
     jugador.mover(window, tiempo_delta)
+
     rombos.rotar(tiempo_delta)
 
     tiempo_anterior = tiempo_actual
@@ -73,12 +74,12 @@ def dibujar():
 
     meta.dibujar()
     fondo.dibujar()
-    jugador.dibujar()
     obs_1.dibujar()
     obs_2.dibujar()
     obs_3.dibujar()
     rombos.dibujar()
     cuadrado.dibujar()
+    jugador.dibujar()
 
 def main():
     global modelo
