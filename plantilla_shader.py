@@ -28,6 +28,11 @@ fondo = None
 modelo = None
 window = None
 
+tiempo_anterior = 0.0
+
+closed = False
+close = glfw.set_window_should_close(window, 1)
+
 vertex_shader_source = ""
 with open('vertex_shader.glsl') as archivo:
     vertex_shader_source = archivo.readlines()
@@ -36,14 +41,24 @@ fragment_shader_source = ""
 with open('fragment_shader.glsl') as archivo:
     fragment_shader_source = archivo.readlines()
 
+def key_callback(window, key, scancode, action, mods):
+    #Que la tecla escape cierre ventana al ser presionado
+    if key == glfw.KEY_ESCAPE and action == glfw.PRESS:
+         glfw.set_window_should_close(window, 1)
+
 def actualizar():
+    global tiempo_anterior
     global window
-    estado_arriba = glfw.get_key(window, glfw.KEY_UP)
-    estado_abajo = glfw.get_key(window, glfw.KEY_DOWN)
-    if estado_arriba == glfw.PRESS:
-        modelo.mover(modelo.ARRIBA)
-    if estado_abajo == glfw.PRESS:
-        modelo.mover(modelo.ABAJO)
+
+    tiempo_actual = glfw.get_time()
+    # Cuanto tiempo paso entre la ejecucion actual
+    # y la inmediata anterior de esta funcion
+    tiempo_delta = tiempo_actual - tiempo_anterior
+
+    jugador.mover(window, tiempo_delta)
+    rombos.rotar(tiempo_delta)
+
+    tiempo_anterior = tiempo_actual
 
 def dibujar():
     global modelo
@@ -129,6 +144,9 @@ def main():
 
     cuadrado = Cuadrado(shader,
         posicion_id, color_id, transformaciones_id)
+
+    #Cerrar con ESC
+    glfw.set_key_callback(window, key_callback)
 
     #draw loop
     while not glfw.window_should_close(window):

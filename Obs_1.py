@@ -5,11 +5,10 @@ import glm
 class Obs_1(Modelo):
     
     def __init__(self,shader, posicion_id, color_id, transformaciones_id):
-        self.ARRIBA = 1
-        self.ABAJO = 2
-        self.IZQUIERDA = 3
-        self.DERECHA = 4
-        self.posicion = glm.vec3(0.0,0.0,0.0)
+
+        self.posicion = glm.vec3(-0.6, -0.55, 0.0)
+        self.posicion1 = glm.vec3(-0.5, -0.55, 0.0)
+
         self.vertices = np.array(
             [
                 -0.05,-0.05, 0,1.0,     1,1,0,1.0,  #izquierda arriba
@@ -28,6 +27,13 @@ class Obs_1(Modelo):
     def dibujar(self):
         self.shader.usar_programa()
         gl.glBindVertexArray(self.VAO)
+
+        self.transformaciones = glm.mat4(1.0)
+        self.transformaciones = glm.translate(self.transformaciones,
+            (self.posicion))
+
+        gl.glUniformMatrix4fv(self.transformaciones_id,
+                1, gl.GL_FALSE, glm.value_ptr(self.transformaciones))
 
         gl.glDrawArrays(gl.GL_TRIANGLES, 0, 3)
         gl.glDrawArrays(gl.GL_TRIANGLES, 3, 3)
