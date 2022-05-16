@@ -1,12 +1,19 @@
 import math
 from Modelo import *
+from cmath import cos, pi, sin
 import glm
 
 class Cuadrado(Modelo):
     
+    fase = 90.0
+    velocidad_cuadrado = 0.20
+    angulo_triangulo = 0.0
+
     def __init__(self,shader, posicion_id, color_id, transformaciones_id):
 
         self.posicion = glm.vec3(0.0, 0.3, 0.0)
+        self.direccion_cuadrado = 1
+        self.posicion_anterior = 0.0
 
         self.vertices = np.array(
             [
@@ -27,6 +34,33 @@ class Cuadrado(Modelo):
         )
 
         super().__init__(shader, posicion_id, color_id, transformaciones_id)
+
+    def mover(self, tiempo_delta):
+
+            cantidad_movimiento = self.velocidad_cuadrado * tiempo_delta
+            if self.direccion_cuadrado == 0:
+                self.posicion[0] = self.posicion[0] - cantidad_movimiento
+                self.posicion[0] = self.posicion[0] + (
+                    math.cos((self.angulo_triangulo + self.fase) * pi / 180.0) * cantidad_movimiento
+                )
+                self.posicion[1] = self.posicion[1] + (
+                    math.sin((self.angulo_triangulo + self.fase) * pi / 180.0) * cantidad_movimiento
+                )
+                self.posicion[0] = self.posicion[0] + (
+                    math.cos((self.angulo_triangulo + self.fase) * pi / 180.0) * cantidad_movimiento
+                )
+                self.posicion[1] = self.posicion[1] + (
+                    math.sin((self.angulo_triangulo + self.fase) * pi / 180.0) * cantidad_movimiento
+                )
+
+            elif self.direccion_cuadrado == 1:
+                self.posicion[0] = self.posicion[0] + cantidad_movimiento
+            
+            if self.posicion[0] <= -0.8 and self.direccion_cuadrado == 0:
+                self.direccion_cuadrado = 1
+            
+            if self.posicion[0] >= 1 and self.direccion_cuadrado == 1:
+                self.direccion_cuadrado = 0
 
     def dibujar(self):
         self.shader.usar_programa()

@@ -59,7 +59,7 @@ def actualizar():
 
     if jugador.colisionando(meta):
         glfw.set_window_should_close(window, 1)
-        
+
     if jugador.colisionando(obs_1):
         jugador.posicion[0] = -0.9
 
@@ -70,6 +70,8 @@ def actualizar():
         jugador.posicion[0] = -0.9
 
     rombos.rotar(tiempo_delta)
+    
+    cuadrado.mover(tiempo_delta)
 
     tiempo_anterior = tiempo_actual
 
