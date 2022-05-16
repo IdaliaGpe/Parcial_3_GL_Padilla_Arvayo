@@ -57,7 +57,16 @@ def actualizar():
 
     jugador.mover(window, tiempo_delta)
 
+    if jugador.colisionando(meta):
+        glfw.set_window_should_close(window, 1)
+        
     if jugador.colisionando(obs_1):
+        jugador.posicion[0] = -0.9
+
+    if jugador.colisionando(obs_2):
+        jugador.posicion[0] = -0.9
+
+    if jugador.colisionando(obs_3):
         jugador.posicion[0] = -0.9
 
     rombos.rotar(tiempo_delta)

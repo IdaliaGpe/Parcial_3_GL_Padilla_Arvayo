@@ -8,6 +8,12 @@ class Meta(Modelo):
         
         self.posicion = glm.vec3(0.95,-0.55,0.0)
 
+        #Colisiones
+        self.extremo_derecho = 0.05
+        self.extremo_izquierdo = 0.05
+        self.extremo_inferior = 0.05
+        self.extremo_superior = 9.0
+
         self.vertices = np.array(
             [
                 -0.05, 9.0, 0.0,1.0,     40/255, 50/255, 100/255,1.0,  #izquierda arriba

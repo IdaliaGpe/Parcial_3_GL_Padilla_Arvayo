@@ -8,6 +8,12 @@ class Obs_3(Modelo):
 
         self.posicion = glm.vec3(0.4, -0.55, 0.0)
 
+        #Colisiones
+        self.extremo_derecho = 0.15
+        self.extremo_izquierdo = 0.05
+        self.extremo_inferior = 0.05
+        self.extremo_superior = 0.10
+
         self.vertices = np.array(
             [
                 -0.05,-0.05,0,1.0,     0.453,0.451,0.56,1.0,  #izquierda arriba
