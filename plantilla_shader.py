@@ -57,9 +57,16 @@ def actualizar():
 
     jugador.mover(window, tiempo_delta)
 
+    if jugador.colisionando(obs_1):
+        jugador.posicion[0] = -0.9
+
     rombos.rotar(tiempo_delta)
 
     tiempo_anterior = tiempo_actual
+
+def colisionando():
+    colisionando = False
+    return colisionando   
 
 def dibujar():
     global modelo

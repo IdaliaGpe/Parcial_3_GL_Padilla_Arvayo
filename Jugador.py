@@ -22,6 +22,11 @@ class Jugador(Modelo):
 
         self.velocidad_y = 0.7
 
+        self.extremo_izquierdo = 0.05
+        self.extremo_derecho = 0.05
+        self.extremo_inferior = 0.05
+        self.extremo_superior = 0.05
+
         self.vertices = np.array(
             [
                 -0.05,0.05,0.0,1.0,     0.4, 0.9, 0.21,1.0,  #izquierda arriba

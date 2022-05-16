@@ -9,6 +9,12 @@ class Obs_1(Modelo):
         self.posicion = glm.vec3(-0.6, -0.55, 0.0)
         self.posicion1 = glm.vec3(-0.5, -0.55, 0.0)
 
+        #Colisiones
+        self.extremo_derecho = 0.15
+        self.extremo_izquierdo = 0.05
+        self.extremo_inferior = 0.05
+        self.extremo_superior = 0.05
+
         self.vertices = np.array(
             [
                 -0.05,-0.05, 0,1.0,     1,1,0,1.0,  #izquierda arriba
