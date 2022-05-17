@@ -20,11 +20,6 @@ class Obs_2(Modelo):
                 -0.05,-0.05,0.0,1.0,    0.158,0.368,0.456,1.0,  #izquierda abajo
                 0.05,0.05,0.0,1.0,      0.158,0.368,0.456,1.0, #derecha arriba
                 0.05,-0.05,0.0,1.0,     0.158,0.368,0.456,1.0, # derecha abajo
-
-                -0.05,0.15,0.0,1.0,     0.621,0.61,0.48,1.0,  #izquierda arriba
-                -0.05,-0.05,0.0,1.0,     0.621,0.61,0.48,1.0,  #izquierda abajo
-               0.05,0.15,0.0,1.0,      0.621,0.61,0.48,1.0, #derecha arriba
-               0.05,-0.05,0.0,1.0,     0.621,0.61,0.48,1.0, # derecha abajo
                 
             ], dtype="float32"
         )
@@ -42,7 +37,6 @@ class Obs_2(Modelo):
                 1, gl.GL_FALSE, glm.value_ptr(self.transformaciones))
 
         gl.glDrawArrays(gl.GL_TRIANGLE_STRIP, 0, 4)
-        gl.glDrawArrays(gl.GL_TRIANGLE_STRIP, 4, 4)
 
         gl.glBindVertexArray(0)
         self.shader.liberar_programa()

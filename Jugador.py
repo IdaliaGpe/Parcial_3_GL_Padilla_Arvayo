@@ -12,10 +12,7 @@ class Jugador(Modelo):
     posicion_y_cuadrado_anterior = 0.0
 
     def __init__(self,shader, posicion_id, color_id, transformaciones_id):
-        self.ARRIBA = 1
-        self.ABAJO = 2
-        self.IZQUIERDA = 3
-        self.DERECHA = 4
+        
         self.posicion = glm.vec3(-0.9,-0.55,0.0)
 
         self.posicion_anterior = 0.0
